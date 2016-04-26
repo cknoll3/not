@@ -1,25 +1,37 @@
 <head>
-  <title>simple</title>
+  <title>N.O.T.</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
-  {{> info}}
+  {{> environment}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="statistics">
+  <div class="col-md-2">
+    Money:
+  </div>
+  <div class="col-md-2">
+    Stamina:
+  </div>
 </template>
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com">Discussions</a></li>
-  </ul>
+<template name="environment">
+  <!-- Show image depending on environment visiting -->
+
+  <!-- Current statistics at the top of the screen -->
+  {{> statistics}}
+
+  <!-- Available actions depending on environment -->
+  {{> actions}}
+
+  <!-- Display public chat if at the bar -->
+  {{> chat}}
+</template>
+
+<template name="actions">
+  
+</template>
+
+<template name="chat">
+
 </template>
