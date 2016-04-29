@@ -1,1 +1,48 @@
 /* CSS declarations go here */
+
+
+body { 
+  background: url("/roomy.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+.textColoringRed{
+	color: red;
+	margin-left:95px;
+}
+
+.textColoringBlue{
+	color: Blue;
+	right:100px;
+}
+
+.mySideBar{
+	position:absolute;
+	height:100%;
+	top:0;
+	bottom:0;
+	left:0;
+	width:200px;
+	text-align:justify;
+	background:white;
+}
+
+.myFriendBar{
+	position:absolute;
+	height:100%;
+	top:0;
+	bottom:0;
+	right:0;
+	width:150px;
+	text-align:justify;
+	background:white;
+}
+
+.imageSizing{
+	max-height:100%;
+	max-width:100%;
+}

@@ -3,16 +3,36 @@
 </head>
 
 <body>
-  {{> environment}}
+<div class="container-fluid">
+    <div class="row">
+ 		{{>player}}       
+        {{>pals}}
+    </div>
+</div>
+
+
 </body>
 
-<template name="statistics">
-  <div class="col-md-2">
-    Money:
-  </div>
-  <div class="col-md-2">
-    Stamina:
-  </div>
+
+<!-- This is there the player's avatar and basic stats are contained -->
+<template name="player">
+<div class="col-md-3 mySideBar">
+<p><h1 style="text-align:center" class="textColoringRed">Jane</h1></p>
+<img src="../player_2.png" class="img-responsive imageSizing">
+<span style="font-size:1.5em;" class="glyphicon glyphicon-heart"> <span style="font-size:1.5em;">25</span></span>
+<span style="font-size:1.5em;" class="glyphicon glyphicon-usd"><span style="font-size:1.5em;">10,000</span></span>
+</div>
+</template>
+
+
+<!-- This is the template that holds stuff for when friends come online -->
+<template name="pals">
+<div class="col-md-3 myFriendBar">
+<p><h1 class="textColoringBlue">Friends</h1></p>
+<img src="../friend_1.jpg" class="img-responsive imageSizing">
+<br>
+<img src="../friend_2.jpg" class="img-responsive imageSizing">
+</div>
 </template>
 
 <template name="environment">
