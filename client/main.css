@@ -1,21 +1,20 @@
 /* CSS declarations go here */
 
 
-body { 
-  background: url("/roomy.jpg") no-repeat center center fixed; 
+body {
+  background: url("/roomy.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 
-
-.textColoringRed{
-	color: red;
-	margin-left:95px;
+.userName {
+  text-align: center;
+  color: red;
 }
 
-.textColoringBlue{
+.friendsList{
 	color: Blue;
 	right:100px;
 }
@@ -45,4 +44,9 @@ body {
 .imageSizing{
 	max-height:100%;
 	max-width:100%;
+}
+
+
+.glyphicon {
+  font-size: 1.5em;
 }
