@@ -5,10 +5,20 @@
 <body>
 
 <div class="container-fluid">
-    <div class="row">
-   		{{>player}}
-      {{>pals}}
+  <div class="row">
+    <div class="mySideBar">
+ 		   {{> player}}
     </div>
+
+
+    <div class="chat">
+      {{> addMessageForm}}
+    </div>
+
+    <div class="myFriendBar">
+      {{> pals}}
+    </div>
+  </div>
 </div>
 
 </body>
@@ -16,25 +26,21 @@
 
 <!-- This is there the player's avatar and basic stats are contained -->
 <template name="player">
-  <div class="col-md-3 mySideBar">
-    <p>
-      <h1 class="userName">Jane</h1>
-    </p>
-    <img src="../player_2.png" class="img-responsive imageSizing">
-    <span class="glyphicon glyphicon-heart">25</span>
-    <span class="glyphicon glyphicon-usd">10,000</span>
-  </div>
+  <p>
+    <h1 class="userName">{{name}}</h1>
+  </p>
+  <img src="../player_2.png" class="img-responsive imageSizing">
+  <span class="glyphicon glyphicon-heart">{{stamina}}</span><br>
+  <span class="glyphicon glyphicon-usd">{{money}}</span>
 </template>
 
 
 <!-- This is the template that holds stuff for when friends come online -->
 <template name="pals">
-  <div class="col-md-3 myFriendBar">
-    <p><h1 class="friendsList">Friends</h1></p>
-    <img src="../friend_1.jpg" class="img-responsive imageSizing">
-    <br>
-    <img src="../friend_2.jpg" class="img-responsive imageSizing">
-  </div>
+  <p><h1 class="friendsList">Friends</h1></p>
+  <img src="../friend_1.jpg" class="img-responsive imageSizing">
+  <br>
+  <img src="../friend_2.jpg" class="img-responsive imageSizing">
 </template>
 
 <template name="environment">
@@ -54,6 +60,27 @@
 
 </template>
 
-<template name="chat">
+<template name="addMessageForm">
+      <!-- form for entering messages -->
+      <div class="chatMessages">
+        <!-- message list -->
+        {{> messageList}}
+      </div>
+
+      <form class="newMessage">
+        <div class="form-group">
+          <label for="messageText">Message:</label>
+          <input type="text" id="messageText" class="form-control">
+        </div>
+      </form>
+
+</template>
+
+<template name="messageList">
+  <ul class="list-group">
+    {{#each allMessages}}
+      <li class='list-group-item'>{{name}}: {{messageText}}</li>
+    {{/each}}
+  </ul>
 
 </template>
