@@ -64,14 +64,13 @@
 
 <template name="addMessageForm">
       <!-- form for entering messages -->
-      <div class="chatMessages">
+      <div id="chatMessages">
         <!-- message list -->
         {{> messageList}}
       </div>
 
       <form class="newMessage">
         <div class="form-group">
-          <label for="messageText">Message:</label>
           <input type="text" id="messageText" class="form-control">
         </div>
       </form>
@@ -81,7 +80,7 @@
 <template name="messageList">
   <ul class="list-group">
     {{#each allMessages}}
-      <li class='list-group-item'>{{name}}: {{messageText}}</li>
+      <b>{{name}}</b>: {{messageText}}<br>
     {{/each}}
   </ul>
 

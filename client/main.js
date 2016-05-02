@@ -6,6 +6,13 @@ import './main.html';
 var character = {name: "Jane", stamina: 23, money: 10300};
 Session.set('character', character);
 
+function scrollChat(){
+  var height = $('#chatMessages')[0].scrollHeight;
+
+  $('#chatMessages').scrollTop(height);
+};
+
+
 Template.addMessageForm.onCreated(function() {
   //save some initial data for our messaging application
   Session.setDefault('messages', []);
@@ -30,6 +37,8 @@ Template.addMessageForm.events({
     });
 
     Session.set('messages', messages);
+
+    scrollChat();
   }
 });
 
