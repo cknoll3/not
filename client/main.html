@@ -32,6 +32,8 @@
   <img src="../player_2.png" class="img-responsive imageSizing">
   <span class="glyphicon glyphicon-heart">{{stamina}}</span><br>
   <span class="glyphicon glyphicon-usd">{{money}}</span>
+  <button class="btn btn-md btn-primary" type="button">Bar</button>
+  <button class="btn btn-md btn-primary" type="button">Office</button>
 </template>
 
 
@@ -62,13 +64,14 @@
 
 <template name="addMessageForm">
       <!-- form for entering messages -->
-      <div id="chatMessages">
+      <div class="chatMessages">
         <!-- message list -->
         {{> messageList}}
       </div>
 
       <form class="newMessage">
         <div class="form-group">
+          <label for="messageText">Message:</label>
           <input type="text" id="messageText" class="form-control">
         </div>
       </form>
@@ -78,7 +81,7 @@
 <template name="messageList">
   <ul class="list-group">
     {{#each allMessages}}
-      <b>{{name}}</b>: {{messageText}}<br>
+      <li class='list-group-item'>{{name}}: {{messageText}}</li>
     {{/each}}
   </ul>
 
