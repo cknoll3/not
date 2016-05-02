@@ -3,7 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
-var character = {name: "Jane", stamina: 23, money: 10300};
+var character = {name: "Jane", stamina: 23, money: 10300, room: "room"};
 Session.set('character', character);
 
 function scrollChat(){
@@ -42,9 +42,32 @@ Template.addMessageForm.events({
   }
 });
 
+//Trying to get buttons to work
+Template.player.events({
+  'click #room': function(event, template){
+    $('body').removeClass().addClass('room');
+  },
+
+  'click #bar': function(event, template){
+    $('body').removeClass().addClass('bar');
+
+  },
+
+  'click #office': function(event, template){
+    $('body').removeClass().addClass('office');
+  }
+
+});
+
 Template.messageList.helpers({
   allMessages: function() {
     return Session.get('messages');
+  }
+});
+
+Template.body.helpers({
+  room: function() {
+    return Session.get('character').room;
   }
 });
 
@@ -60,9 +83,14 @@ Template.player.helpers({
   name: function() {
     return Session.get('character').name;
   }
+
 })
 
 //global helpers
 Template.registerHelper('messagesExist', function() {
   return Session.get('messages').length > 0;
+});
+
+Template.registerHelper('displayRoom', function() {
+  return Session.get('character').room;
 });
