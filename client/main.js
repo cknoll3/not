@@ -3,15 +3,14 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
-var character = {name: "Jane", stamina: 23, money: 10300, room: "room"};
-Session.set('character', character);
-
+/**************************************
+---------------- CHAT -----------------
+***************************************/
 function scrollChat(){
   var height = $('#chatMessages')[0].scrollHeight;
 
   $('#chatMessages').scrollTop(height);
 };
-
 
 Template.addMessageForm.onCreated(function() {
   //save some initial data for our messaging application
@@ -42,7 +41,45 @@ Template.addMessageForm.events({
   }
 });
 
-//Trying to get buttons to work
+Template.messageList.helpers({
+  allMessages: function() {
+    return Session.get('messages');
+  }
+});
+
+Template.registerHelper('messagesExist', function() {
+  return Session.get('messages').length > 0;
+});
+
+/**************************************
+--------------PLAYER SIDEBAR ----------
+***************************************/
+// Pull character information after login
+var character = {name: "Jane", stamina: 23, money: 10300, room: "room"};
+
+// Save the character information to the database
+Session.set('character', character);
+
+Template.player.helpers({
+  stamina: function() {
+    return Session.get('character').stamina;
+  },
+
+  money: function() {
+    return Session.get('character').money;
+  },
+
+  name: function() {
+    return Session.get('character').name;
+  }
+
+});
+
+
+/**************************************
+------------- ROOM --------------------
+***************************************/
+
 Template.player.events({
   'click #room': function(event, template){
     $('body').removeClass().addClass('room');
@@ -59,36 +96,10 @@ Template.player.events({
 
 });
 
-Template.messageList.helpers({
-  allMessages: function() {
-    return Session.get('messages');
-  }
-});
-
 Template.body.helpers({
   room: function() {
     return Session.get('character').room;
   }
-});
-
-Template.player.helpers({
-  stamina: function() {
-    return Session.get('character').stamina;
-  },
-
-  money: function() {
-    return Session.get('character').money;
-  },
-
-  name: function() {
-    return Session.get('character').name;
-  }
-
-})
-
-//global helpers
-Template.registerHelper('messagesExist', function() {
-  return Session.get('messages').length > 0;
 });
 
 Template.registerHelper('displayRoom', function() {
