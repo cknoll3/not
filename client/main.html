@@ -24,15 +24,18 @@
 
 <!-- This is there the player's avatar and basic stats are contained -->
 <template name="player">
-  <p>
-    <h1 class="userName">{{name}}</h1>
-  </p>
-  <img src="../player_2.png" class="img-responsive imageSizing">
-  <span class="glyphicon glyphicon-heart">{{stamina}}</span><br>
-  <span class="glyphicon glyphicon-usd">{{money}}</span>
-  <div><button id="room" class="btn btn-md btn-primary" type="button">Room</button></div>
-  <div><button id="bar" class="btn btn-md btn-primary" type="button">Bar</button></div>
-  <div><button id="office" class="btn btn-md btn-primary" type="button">Office</button></div>
+  {{#with character}}
+    <p>
+      <h1 class="userName">{{name}}</h1>
+    </p>
+
+    <img src="../player_2.png" class="img-responsive imageSizing">
+    <span class="glyphicon glyphicon-heart">{{stamina}}</span><br>
+    <span class="glyphicon glyphicon-usd">{{money}}</span>
+    <div><button id="room" class="btn btn-md btn-primary" type="button">Room</button></div>
+    <div><button id="bar" class="btn btn-md btn-primary" type="button">Bar</button></div>
+    <div><button id="office" class="btn btn-md btn-primary" type="button">Office</button></div>
+  {{/with}}
 </template>
 
 
@@ -79,7 +82,7 @@
 <template name="messageList">
   <ul class="list-group">
     {{#each allMessages}}
-      <b>{{name}}</b>: {{messageText}}<br>
+      <b>{{name}}</b>: {{message}}<br>
     {{/each}}
   </ul>
 

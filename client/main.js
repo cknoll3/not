@@ -1,5 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { playersCollection } from '../collections/collections.js';
+import { messages } from "../collections/collections.js";
 
 import './main.html';
 
@@ -26,16 +28,11 @@ Template.addMessageForm.events({
     var messageText = $('#messageText').val();
     $('#messageText').val(''); // remove text from our message box
 
-    //get our data source (from session)
-    var messages = Session.get('messages');
-
     //save our message
-    messages.push({
-      messageText: messageText,
-      name: character.name
+    messages.insert({
+      message: messageText,
+      name: playersCollection.findOne({userName: loggedInUser}).name
     });
-
-    Session.set('messages', messages);
 
     scrollChat();
   }
@@ -43,7 +40,7 @@ Template.addMessageForm.events({
 
 Template.messageList.helpers({
   allMessages: function() {
-    return Session.get('messages');
+    return messages.find();
   }
 });
 
@@ -54,27 +51,22 @@ Template.registerHelper('messagesExist', function() {
 /**************************************
 --------------PLAYER SIDEBAR ----------
 ***************************************/
-// Pull character information after login
-var character = {name: "Jane", stamina: 23, money: 10300, room: "room"};
+// Set variable with character user name after login
+var loggedInUser = ""; // Set this to the userName used on login if successful
 
-// Save the character information to the database
-Session.set('character', character);
+
+if (loggedInUser === "") {
+  loggedInUser = "default";
+}
+
+var character = playersCollection.findOne({userName: "default"});
 
 Template.player.helpers({
-  stamina: function() {
-    return Session.get('character').stamina;
-  },
-
-  money: function() {
-    return Session.get('character').money;
-  },
-
-  name: function() {
-    return Session.get('character').name;
+  character: function() {
+    //retrieve all bookmarks from our collection
+    return playersCollection.findOne({userName: loggedInUser});
   }
-
 });
-
 
 /**************************************
 ------------- ROOM --------------------
@@ -94,14 +86,4 @@ Template.player.events({
     $('body').removeClass().addClass('office');
   }
 
-});
-
-Template.body.helpers({
-  room: function() {
-    return Session.get('character').room;
-  }
-});
-
-Template.registerHelper('displayRoom', function() {
-  return Session.get('character').room;
 });
