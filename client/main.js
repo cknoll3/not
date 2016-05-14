@@ -52,38 +52,85 @@ Template.registerHelper('messagesExist', function() {
 --------------PLAYER SIDEBAR ----------
 ***************************************/
 // Set variable with character user name after login
-var loggedInUser = ""; // Set this to the userName used on login if successful
+var loggedInUser = Meteor.user(); // Set this to the userName used on login if successful
 
 
-if (loggedInUser === "") {
+if (loggedInUser === Meteor.user()) {
   loggedInUser = "default";
 }
 
-var character = playersCollection.findOne({userName: "default"});
+if(loggedInUser){
+  var character = playersCollection.findOne({userName: "default"});
 
-Template.player.helpers({
-  character: function() {
-    //retrieve all bookmarks from our collection
-    return playersCollection.findOne({userName: loggedInUser});
-  }
-});
+  Template.player.helpers({
+    character: function() {
+      //retrieve all bookmarks from our collection
+      return playersCollection.findOne({userName: loggedInUser});
+    }
+  });
+}
+
 
 /**************************************
 ------------- ROOM --------------------
 ***************************************/
 
+
 Template.player.events({
   'click #room': function(event, template){
     $('body').removeClass().addClass('room');
+    $('.myBarButton').hide();
+    $('.myMoneyMaker').hide();
+    $('#noRest').removeAttr('id');
+    $('.resting').show();
+
+    var playerId = this._id;
+    Session.set('selectedUser', playerId);
+    console.log(playerId);
   },
 
   'click #bar': function(event, template){
     $('body').removeClass().addClass('bar');
+    $('#noDrinking').removeAttr('id');
+      $('.myBarButton').show();
+      $('.myMoneyMaker').hide();
+      $('.resting').hide();
 
+      var playerId = this._id;
+      Session.set('selectedUser', playerId);
+      console.log(playerId);
   },
 
   'click #office': function(event, template){
     $('body').removeClass().addClass('office');
+    $('#noMoney').removeAttr('id');
+    $('.myBarButton').hide();
+    $('.myMoneyMaker').show();
+    $('.resting').hide();
+
+    var playerId = this._id;
+    Session.set('selectedUser', playerId);
+    console.log(playerId);
+  },
+
+  'click #money': function(event, template){
+    var selectedUser = Session.get('selectedUser');
+    console.log(selectedUser);
+    playersCollection.update({_id: selectedUser}, {$inc: {stamina: -1, money: 10}}, {room: "office"});
+  },
+
+  'click #sleep': function(event, template){
+    var selectedUser = Session.get('selectedUser');
+    console.log(selectedUser);
+    playersCollection.update({_id: selectedUser}, {$inc: {stamina: 10}}, {room: "room"});
+  },
+
+  'click #drink': function(event, template){
+    var selectedUser = Session.get('selectedUser');
+    console.log(selectedUser);
+    playersCollection.update({_id: selectedUser}, {$inc: {money: -5}}, {room: "bar"});
   }
+
+
 
 });

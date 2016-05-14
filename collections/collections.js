@@ -8,7 +8,7 @@ export const messages = new Mongo.Collection("messages");
 export const playersDummyData = [
   {
     "userName": "default",
-    "name": "Jane",
+    "name": "CJ",
     "stamina": 20,
     "money": 0,
     "room": "room"
@@ -18,6 +18,13 @@ export const playersDummyData = [
     "name": "Bob",
     "stamina": 45,
     "money": 2341,
+    "room": "room"
+  },
+  {
+    "userName": "PEsSXkGFLHXmojFyd",
+    "name": "J",
+    "stamina": 20,
+    "money": 0,
     "room": "room"
   }
 ];

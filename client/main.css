@@ -95,6 +95,18 @@ body {
   font-size: 1.5em;
 }
 
-div{
+.spacer{
 	margin-bottom:10px;
+}
+
+#noRest{
+  display: none;
+}
+
+#noMoney{
+  display: none;
+}
+
+#noDrinking{
+  display: none;
 }

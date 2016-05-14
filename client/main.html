@@ -29,13 +29,18 @@
       <h1 class="userName">{{name}}</h1>
     </p>
 
-    <img src="../player_2.png" class="img-responsive imageSizing">
+    <img src="../male_player.png" class="img-responsive imageSizing spacer">
     <span class="glyphicon glyphicon-heart">{{stamina}}</span><br>
     <span class="glyphicon glyphicon-usd">{{money}}</span>
-    <div><button id="room" class="btn btn-md btn-primary" type="button">Room</button></div>
-    <div><button id="bar" class="btn btn-md btn-primary" type="button">Bar</button></div>
-    <div><button id="office" class="btn btn-md btn-primary" type="button">Office</button></div>
+    <div><button id="room" class="btn btn-md btn-primary spacer" type="button">Room</button></div>
+    <div id="noRest"><button id="sleep" class="btn btn-md btn-primary spacer resting" type="button">Rest</button></div>
+    <div><button id="bar" class="btn btn-md btn-primary spacer" type="button">Bar</button></div>
+    <div id="noDrinking"><button id="drink" class="btn btn-md btn-primary spacer myBarButton" type="button">Buy a drink</button></div>
+    <div><button id="office" class="btn btn-md btn-primary spacer" type="button">Office</button></div>
+    <div id="noMoney"><button id="money" class="btn btn-md btn-primary spacer myMoneyMaker" type="button">Make Money</button></div>
   {{/with}}
+
+
 </template>
 
 
