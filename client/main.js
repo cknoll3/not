@@ -87,6 +87,10 @@ Template.player.events({
     var playerId = this._id;
     Session.set('selectedUser', playerId);
     console.log(playerId);
+
+    //Updates the room name to the correct room.
+    var selectedUser = Session.get('selectedUser');
+    playersCollection.update({_id: selectedUser}, {$set: {room: 'room'}});
   },
 
   'click #bar': function(event, template){
@@ -99,6 +103,9 @@ Template.player.events({
       var playerId = this._id;
       Session.set('selectedUser', playerId);
       console.log(playerId);
+
+      var selectedUser = Session.get('selectedUser');
+    playersCollection.update({_id: selectedUser}, {$set: {room: 'bar'}});
   },
 
   'click #office': function(event, template){
@@ -111,24 +118,27 @@ Template.player.events({
     var playerId = this._id;
     Session.set('selectedUser', playerId);
     console.log(playerId);
+
+    var selectedUser = Session.get('selectedUser');
+    playersCollection.update({_id: selectedUser}, {$set: {room: 'office'}});
   },
 
   'click #money': function(event, template){
     var selectedUser = Session.get('selectedUser');
     console.log(selectedUser);
-    playersCollection.update({_id: selectedUser}, {$inc: {stamina: -1, money: 10}}, {room: "office"});
+    playersCollection.update({_id: selectedUser}, {$inc: {stamina: -1, money: 10}});
   },
 
   'click #sleep': function(event, template){
     var selectedUser = Session.get('selectedUser');
     console.log(selectedUser);
-    playersCollection.update({_id: selectedUser}, {$inc: {stamina: 10}}, {room: "room"});
+    playersCollection.update({_id: selectedUser}, {$inc: {stamina: 10}});
   },
 
   'click #drink': function(event, template){
     var selectedUser = Session.get('selectedUser');
     console.log(selectedUser);
-    playersCollection.update({_id: selectedUser}, {$inc: {money: -5}}, {room: "bar"});
+    playersCollection.update({_id: selectedUser}, {$inc: {money: -5}});
   }
 
 
