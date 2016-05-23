@@ -38,6 +38,15 @@ export const playersDummyData = [
     "admin": "true"
   },
   {
+    "email": "cknoll3@gmail.com",
+    "name": "Bob",
+    "stamina": 45,
+    "money": 2341,
+    "room": "room",
+    "owner": "MD47o5Tq4dHWGFk43",
+    "admin": "true"
+  },
+  {
     "email": "janedoe@mail.com",
     "name": "J",
     "stamina": 20,

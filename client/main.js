@@ -49,6 +49,12 @@ Template.messageList.helpers({
   }
 });
 
+// Scroll chat any time it's rendered on screen
+Template.messageList.onRendered(function() {
+  scrollChat();
+});
+
+
 Template.registerHelper('messagesExist', function() {
   return Session.get('messages').length > 0;
 });
@@ -83,7 +89,7 @@ if(loggedInUser){
 
   var character = playersCollection.findOne({owner: loggedInUser});
   var characterPersonalInfo = playerPersonalInfo.findOne({name: "Bob"});
-  
+
 
   Template.userPersonalInfo.helpers({
     characterPersonalInfo: function(){
