@@ -1,73 +1,130 @@
-<head>
-  <title>N.O.T.</title>
-</head>
+<Template name="pageLayout">
+  <div class="container-fluid">
+    <header>
+      <h1 style="text-align:center" id="socialHackTitleColor">Social H@ck</h1>
+      <div style="text-align:center">
+        {{>headerNavigation}}
+      </div>
+    </header>
+    <hr />
+      <div class="row">
+        <div class="mySideBar">
+          {{>loggedPlayer}}
 
-<body>
-<div class="container-fluid">
-  <div class="row">
-    <div class="mySideBar">
- 		   {{> player}}
+        </div>
+
+    {{>yield}}
+
+    <div class="myFriendBar">
+{{>login}}
+{{>pals}}
     </div>
 
+
+  </div>
+
+    <footer id="footerPart">
+<hr />
+        <p style="text-align:center">Copyright &copy; Social Hack, 2016.</p>
+    </footer>
+
+  </div>
+</Template>
+
+<Template name="login">
+  <div style="strong">
+    <!--The align right makes it so that it doesn't overflow off the viewport -->
+    {{>loginButtons align="right"}}
+  </div>
+</Template>
+
+<Template name="index">
+    <p style="text-align:center">
+      Welcome to Social H@ck
+    </p>
+</Template>
+
+<Template name="userRoomPage">
+  <div class="container">
+    <h2 style="color:red" class="centerTexting">Welcome to your Room</h2>
+  </div>
+
+</Template>
+
+<Template name="bar">
+  <div class="container">
+    <h2 style="color:red" class="centerTexting">Welcome to the Bar</h2>
+
+    <!-- chat in the bar -->
 
     <div class="chat">
       {{> addMessageForm}}
     </div>
 
-    <div class="myFriendBar">
-      {{> pals}}
-    </div>
+    <!-- end of chat in the bar -->
   </div>
+
+</Template>
+
+<Template name="office">
+  <div class="container">
+    <h2 style="color:red" class="centerTexting">Welcome to the Office</h2>
+  </div>
+
+</Template>
+
+<!-- this is shows the player stuff -->
+<Template name="loggedPlayer">
+  {{#with character}}
+  {{#if currentUser}}
+  <div>
+    <h1 class="userName">{{name}}</h1>
+  </div>
+  <img src="../male_player.png" class="img-responsive imageSizing">
+  <span class="glyphicon glyphicon-heart playerStatIconSpacing">{{stamina}}</span>
+  <br>
+  <span class="glyphicon glyphicon-usd playerStatIconSpacing">{{money}}</span>
+  <br>
+  {{>navigation}}
+  {{/if}}
+  {{/with}}
+</Template>
+
+<!-- end of loggedPlayer-->
+
+
+
+<Template name="navigation">
+  <div>
+    <a href="/userRoomPage">
+      <button id="room" class="btn btn-md btn-primary buttonSpacing" style="color:red">Room</button>
+    </a>
+  </div>
+  <div id="noRest">
+    <button id="sleep" class="btn btn-md btn-primary resting actionButtonSpacing" type="button">Rest</button>
+  </div>
+<div>
+  <a href="/bar">
+    <button id="bar" class="btn btn-md btn-primary buttonSpacing" style="color:red">Bar</button>
+  </a>
 </div>
 
-</body>
+  <div id="noDrinking">
+    <button id="drink" class="btn btn-md btn-primary myBarButton actionButtonSpacing" type="button">Buy a drink</button>
+  </div>
+<div>
+  <a href="/office">
+    <button id="office" class="btn btn-md btn-primary buttonSpacing" style="color:red">Office</button>
+  </a>
+</div>
 
-<!-- This is there the player's avatar and basic stats are contained -->
-<template name="player">
-  {{#with character}}
-    <p>
-      <h1 class="userName">{{name}}</h1>
-    </p>
+  <div id="noMoney">
+    <button id="money" class="btn btn-md btn-primary myMoneyMaker actionButtonSpacing" type="button">Make Money</button>
+  </div>
+</Template>
 
-    <img src="../male_player.png" class="img-responsive imageSizing spacer">
-    <span class="glyphicon glyphicon-heart">{{stamina}}</span><br>
-    <span class="glyphicon glyphicon-usd">{{money}}</span>
-    <div><button id="room" class="btn btn-md btn-primary spacer" type="button">Room</button></div>
-    <div id="noRest"><button id="sleep" class="btn btn-md btn-primary spacer resting" type="button">Rest</button></div>
-    <div><button id="bar" class="btn btn-md btn-primary spacer" type="button">Bar</button></div>
-    <div id="noDrinking"><button id="drink" class="btn btn-md btn-primary spacer myBarButton" type="button">Buy a drink</button></div>
-    <div><button id="office" class="btn btn-md btn-primary spacer" type="button">Office</button></div>
-    <div id="noMoney"><button id="money" class="btn btn-md btn-primary spacer myMoneyMaker" type="button">Make Money</button></div>
-  {{/with}}
+<!-- chat stuff -->
 
-
-</template>
-
-
-<!-- This is the template that holds stuff for when friends come online -->
-<template name="pals">
-  <p><h1 class="friendsList">Friends</h1></p>
-  <img src="../friend_1.jpg" class="img-responsive imageSizing">
-  <br>
-  <img src="../friend_2.jpg" class="img-responsive imageSizing">
-</template>
-
-<template name="environment">
-  <!-- Show image depending on environment visiting -->
-
-  <!-- Current statistics at the top of the screen -->
-  {{> statistics}}
-
-  <!-- Available actions depending on environment -->
-  {{> actions}}
-
-  <!-- Display public chat if at the bar -->
-  {{> chat}}
-</template>
-
-<template name="actions">
-
-</template>
 
 <template name="addMessageForm">
       <!-- form for entering messages -->
@@ -92,3 +149,70 @@
   </ul>
 
 </template>
+
+
+<!-- end of chat stuff -->
+
+<!-- This is to show the player's friend.-->
+<template name="pals">
+  {{#if currentUser}}
+  <p><h1 class="friendsList">Friends</h1></p>
+  <img src="../friend_1.jpg" class="img-responsive imageSizing">
+  <br>
+  <img src="../friend_2.jpg" class="img-responsive imageSizing">
+  {{/if}}
+</template>
+
+<!-- end of pals-->
+
+<!-- accounts page -->
+
+<Template name="userPersonalInfo">
+  {{#if currentUser}}
+  {{#with characterPersonalInfo}}
+  <div style="text-align:center">
+    Name: {{name}}
+  </div>
+  {{/with}}
+  {{/if}}
+<div style="text-align:center">
+  <a href="/editAccountInfo"><button class="btn btn-primary btn-md">Edit Account Info</button></a>
+</div>
+
+</Template>
+
+<!--end of accounts page-->
+
+<!-- header navigation-->
+
+<Template name="headerNavigation">
+  <a href="/"><button id="home" class="btn btn-primary btn-md">Home</button></a>
+  {{#if currentUser}}
+  <a href="/userPersonalInfo"><button id="myAccount" class="btn btn-primary btn-md">My Account</button></a>
+  <a href="/managingOtherUsers"><button id="adminOnly" class="btn btn-primary btn-md ">Manage Users</button></a>
+  {{/if}}
+</Template>
+
+<!-- end of header navigation-->
+
+<Template name="editAccountInfo">
+  <div class="col-xs-4">
+    <label class="centerTexting" style="strong">Name:</label>
+    <form>
+      <input class="form-control centerTexting" style="text-align:center" name="nameOfUser">
+      <a href="/userPersonalInfo" class="centerTexting"><button type="submit" value="Update Name">Done</button></a>
+    </form>
+  </div>
+
+
+</Template>
+
+<Template name="managingOtherUsers">
+  <div class="col-xs-4">
+    <label class="centerTexting" style="strong">Email:</label>
+    <form>
+      <input class="form-control centerTexting" style="text-align:center" name="nameOfUser">
+      <button type="submit" value="Update Name">Delete</button>
+    </form>
+  </div>
+</Template>

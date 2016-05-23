@@ -5,9 +5,17 @@ import { messages } from "../collections/collections.js";
 
 import './main.html';
 
-/**************************************
----------------- CHAT -----------------
-***************************************/
+//This let's the user have access to the data from the playersCollection database
+Meteor.subscribe('theUser');
+
+
+Meteor.subscribe('theUserMessage');
+/***************************************************************
+
+chat stuff
+
+*****************************************************************/
+
 function scrollChat(){
   var height = $('#chatMessages')[0].scrollHeight;
 
@@ -26,13 +34,10 @@ Template.addMessageForm.events({
 
     //get our form value (message text)
     var messageText = $('#messageText').val();
-    $('#messageText').val(''); // remove text from our message box
 
-    //save our message
-    messages.insert({
-      message: messageText,
-      name: playersCollection.findOne({userName: loggedInUser}).name
-    });
+    Meteor.call('newUserMessage', messageText);
+
+    $('#messageText').val("");
 
     scrollChat();
   }
@@ -48,99 +53,137 @@ Template.registerHelper('messagesExist', function() {
   return Session.get('messages').length > 0;
 });
 
-/**************************************
---------------PLAYER SIDEBAR ----------
-***************************************/
+
+
+/*********************************************************
+
+end of chat stuff
+
+******************************************************/
+
+
+
+
+/*************************************************************
+
+default player
+
+****************************************************************/
+
 // Set variable with character user name after login
-var loggedInUser = Meteor.user(); // Set this to the userName used on login if successful
+var loggedInUser = Meteor.userId();
 
 
-if (loggedInUser === Meteor.user()) {
-  loggedInUser = "default";
-}
+
 
 if(loggedInUser){
-  var character = playersCollection.findOne({userName: "default"});
 
-  Template.player.helpers({
+  var isAdmin = playersCollection.findOne({admin: "true"});
+  console.log('isAdmin');
+
+  var character = playersCollection.findOne({owner: loggedInUser});
+  var characterPersonalInfo = playerPersonalInfo.findOne({name: "Bob"});
+  
+
+  Template.userPersonalInfo.helpers({
+    characterPersonalInfo: function(){
+      return playerPersonalInfo.findOne({name: "Bob"});
+    }
+  });
+
+  Template.loggedPlayer.helpers({
     character: function() {
       //retrieve all bookmarks from our collection
-      return playersCollection.findOne({userName: loggedInUser});
+      return playersCollection.findOne({owner: loggedInUser});
+      console.log(loggedInUser);
     }
   });
 }
 
+/*********************************************************
 
-/**************************************
-------------- ROOM --------------------
-***************************************/
+end of default player
 
+******************************************************/
 
-Template.player.events({
+/*********************************************************
+
+click events with buttons for action
+
+******************************************************/
+
+Template.navigation.events({
   'click #room': function(event, template){
-    $('body').removeClass().addClass('room');
-    $('.myBarButton').hide();
-    $('.myMoneyMaker').hide();
     $('#noRest').removeAttr('id');
-    $('.resting').show();
+    $('#drink').hide();
+    $('#money').hide();
+    $('#sleep').show();
 
-    var playerId = this._id;
-    Session.set('selectedUser', playerId);
-    console.log(playerId);
-
-    //Updates the room name to the correct room.
-    var selectedUser = Session.get('selectedUser');
-    playersCollection.update({_id: selectedUser}, {$set: {room: 'room'}});
+    Meteor.call('roomChangerUserRoom');
   },
 
   'click #bar': function(event, template){
-    $('body').removeClass().addClass('bar');
     $('#noDrinking').removeAttr('id');
-      $('.myBarButton').show();
-      $('.myMoneyMaker').hide();
-      $('.resting').hide();
+    $('#sleep').hide();
+    $('#money').hide();
+    $('#drink').show();
 
-      var playerId = this._id;
-      Session.set('selectedUser', playerId);
-      console.log(playerId);
-
-      var selectedUser = Session.get('selectedUser');
-    playersCollection.update({_id: selectedUser}, {$set: {room: 'bar'}});
+    Meteor.call('roomChangerBar');
   },
 
   'click #office': function(event, template){
-    $('body').removeClass().addClass('office');
     $('#noMoney').removeAttr('id');
-    $('.myBarButton').hide();
-    $('.myMoneyMaker').show();
-    $('.resting').hide();
+    $('#sleep').hide();
+    $('#drink').hide();
+    $('#money').show();
 
-    var playerId = this._id;
-    Session.set('selectedUser', playerId);
-    console.log(playerId);
-
-    var selectedUser = Session.get('selectedUser');
-    playersCollection.update({_id: selectedUser}, {$set: {room: 'office'}});
+    Meteor.call('roomChangerOffice');
   },
 
   'click #money': function(event, template){
-    var selectedUser = Session.get('selectedUser');
-    console.log(selectedUser);
-    playersCollection.update({_id: selectedUser}, {$inc: {stamina: -1, money: 10}});
+    Meteor.call('increaseMoney');
   },
 
   'click #sleep': function(event, template){
-    var selectedUser = Session.get('selectedUser');
-    console.log(selectedUser);
-    playersCollection.update({_id: selectedUser}, {$inc: {stamina: 10}});
+    Meteor.call('increaseStamina');
   },
 
   'click #drink': function(event, template){
-    var selectedUser = Session.get('selectedUser');
-    console.log(selectedUser);
-    playersCollection.update({_id: selectedUser}, {$inc: {money: -5}});
+  Meteor.call('decreaseMoney');
   }
-
-
-
 });
+
+/*********************************************************
+
+end of click events for actions
+
+******************************************************/
+
+Template.headerNavigation.events({
+  'click #home': function(event, template){
+    $('#sleep').hide();
+    $('#drink').hide();
+    $('#money').hide();
+  },
+
+  'click #myAccount': function(event, template){
+    $('#sleep').hide();
+    $('#drink').hide();
+    $('#money').hide();
+  }
+});
+
+/*********************************************************
+
+Event for updating the user's person info
+
+******************************************************/
+
+Template.editAccountInfo.events({});
+
+
+/*********************************************************
+
+end of updating the user's person info
+
+******************************************************/

@@ -1,17 +1,11 @@
-body {
-  background: url("/roomy.jpg") no-repeat center center fixed;
+/* CSS declarations go here */
+.index {
+  background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
 
-.room {
-  background: url("/roomy.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
 .office {
@@ -30,14 +24,12 @@ body {
   background-size: cover;
 }
 
-.userName {
-  text-align: center;
-  color: red;
-}
-
-.friendsList{
-	color: Blue;
-	right:100px;
+.userRoomPage {
+  background: url("/roomy.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .mySideBar{
@@ -51,6 +43,7 @@ body {
 	background:white;
 }
 
+
 .myFriendBar{
 	position:absolute;
 	height:100%;
@@ -62,9 +55,51 @@ body {
 	background:white;
 }
 
+p{
+  color: green;
+}
+
+.buttonSpacing{
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.actionButtonSpacing{
+  margin-left: 10px;
+}
+
+.playerStatIconSpacing{
+  margin-left: 10px;
+}
+
+
+.imageSizing{
+	height:auto;
+	width:auto;
+	max-height:90%;
+	max-width:100%;
+}
+
+
+.glyphicon {
+  font-size: 1.5em;
+}
+
+#socialHackTitleColor{
+  color: red;
+}
+
+.centerTexting{
+  margin-left: 210px;
+}
+
+/* chat stuff */
+
+
 .chat {
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   left: 220px;
   right: 170px;
   max-height: 200px;
@@ -82,21 +117,13 @@ body {
   font-size: 1.25em;
  }
 
-
-.imageSizing{
-	height:auto;
-	width:auto;
-	max-height:90%;
-	max-width:100%;
-}
+/*end of chat stuff */
 
 
-.glyphicon {
-  font-size: 1.5em;
-}
-
-.spacer{
-	margin-bottom:10px;
+#footerPart{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
 
 #noRest{
@@ -108,5 +135,9 @@ body {
 }
 
 #noDrinking{
+  display: none;
+}
+
+#adminOnly{
   display: none;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "userRoom",
+  "name": "ironBGThree",
   "private": true,
   "scripts": {
     "start": "meteor run"
