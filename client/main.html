@@ -78,12 +78,12 @@
   {{#with character}}
   {{#if currentUser}}
   <div>
-    <h1 class="userName">{{name}}</h1>
+    <h1 class="userName">{{profile.name}}</h1>
   </div>
   <img src="../male_player.png" class="img-responsive imageSizing">
-  <span class="glyphicon glyphicon-heart playerStatIconSpacing">{{stamina}}</span>
+  <span class="glyphicon glyphicon-heart playerStatIconSpacing">{{profile.stamina}}</span>
   <br>
-  <span class="glyphicon glyphicon-usd playerStatIconSpacing">{{money}}</span>
+  <span class="glyphicon glyphicon-usd playerStatIconSpacing">{{profile.money}}</span>
   <br>
   {{>navigation}}
   {{/if}}

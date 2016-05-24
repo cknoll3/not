@@ -12,6 +12,8 @@ export const messages = new Mongo.Collection("messages");
 playerPersonalInfo = new Mongo.Collection("personalInformation");
 
 
+
+
 /*****************************************************************
 
 Dummy data for users
@@ -26,7 +28,7 @@ export const playersDummyData = [
     "money": 0,
     "room": "room",
     "owner": "MFMamju3rr2tn554E",
-    "admin": "false"
+    "admin": false
   },
   {
     "email": "Admin@mail.com",
@@ -35,16 +37,7 @@ export const playersDummyData = [
     "money": 2341,
     "room": "room",
     "owner": "5Gqog8zMmukYnwqYp",
-    "admin": "true"
-  },
-  {
-    "email": "cknoll3@gmail.com",
-    "name": "Bob",
-    "stamina": 45,
-    "money": 2341,
-    "room": "room",
-    "owner": "MD47o5Tq4dHWGFk43",
-    "admin": "true"
+    "admin": true
   },
   {
     "email": "janedoe@mail.com",
@@ -53,7 +46,7 @@ export const playersDummyData = [
     "money": 0,
     "room": "room",
     "owner": "",
-    "admin": "false"
+    "admin": false
   }
 ];
 

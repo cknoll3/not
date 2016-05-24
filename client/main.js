@@ -54,7 +54,6 @@ Template.messageList.onRendered(function() {
   scrollChat();
 });
 
-
 Template.registerHelper('messagesExist', function() {
   return Session.get('messages').length > 0;
 });
@@ -78,17 +77,24 @@ default player
 
 // Set variable with character user name after login
 var loggedInUser = Meteor.userId();
-
+var trueAdmin = true;
 
 
 
 if(loggedInUser){
+console.log(loggedInUser);
 
-  var isAdmin = playersCollection.findOne({admin: "true"});
-  console.log('isAdmin');
 
-  var character = playersCollection.findOne({owner: loggedInUser});
+  var character = Meteor.users.findOne({_id: loggedInUser});
   var characterPersonalInfo = playerPersonalInfo.findOne({name: "Bob"});
+
+
+
+
+  /*
+  Both isAdmin and character variables are coming up as undefired, but i know
+  it's picking up the value for both parts.
+  */
 
 
   Template.userPersonalInfo.helpers({
@@ -100,7 +106,7 @@ if(loggedInUser){
   Template.loggedPlayer.helpers({
     character: function() {
       //retrieve all bookmarks from our collection
-      return playersCollection.findOne({owner: loggedInUser});
+      return Meteor.users.findOne({_id: loggedInUser});
       console.log(loggedInUser);
     }
   });
